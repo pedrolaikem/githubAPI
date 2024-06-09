@@ -1,29 +1,21 @@
+import React from 'react';
 import { useState, useEffect } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
-import axios from 'axios'
+
+
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { getUser } from './Api'
+import Home from './components/Home'
+import User from './components/User'
 
 function App() {
-  const [count, setCount] = useState(0)
-  const [user, setUser] = useState(null)
-  useEffect(() => {
-    const loadData = async () => {
-
-      const [userResponse] = await Promise.all([getUser('pedrolaikem')])
-      setUser(userResponse.data)
-      console.log(userResponse.data)
-    }
-    loadData()
-  }, [])
 
   return (
-    <div class>
-      <h1 className="text-3xl font-bold underline">
-        Hello world!
-      </h1>
-    </div>
+    <Router>
+      <Routes>
+        <Route exact path="/" Component={Home} />
+        <Route path="users/:login" Component={User} />
+      </Routes>
+    </Router>
   )
 }
 
