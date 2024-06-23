@@ -6,19 +6,19 @@ import { Input, Typography } from '@mui/material';
 import IconButton from '@mui/material/IconButton';
 import SearchIcon from '@mui/icons-material/Search';
 import GitHubLogo from '../assets/images/github-logo.svg'
-
+import Textfield from '@mui/material/TextField';
 
 
 const Home = () => {
 
-    const [login, setLogin] = useState('')
+    const [login, setLogin] = useState()
     const navigate = useNavigate()
 
     const handleSearch = (event) => {
         if (event.key === 'Enter') {
             navigate(`/users/${login}`)
         }
-        
+
     }
 
     return (
@@ -32,20 +32,28 @@ const Home = () => {
                     <Grid item xs={12} textAlign="center">
                         <Typography variant='h4' >Search for your Github profile</Typography>
                     </Grid>
-                    <Grid item xs={12} textAlign="center">
-                        <input placeholder="Your GitHub profile"
-                            className='w-[21%] h-8 rounded  text-center text-black ml-8'
+                    <Grid item xs={12} textAlign="center" style={{ alignItems: 'center', justifyContent: 'center' }}>
+                        <Textfield placeholder="Your GitHub profile"
+                            className='w-[21%] rounded  text-center text-black '
+                            style={{ backgroundColor: 'white' }}
                             value={login}
                             onChange={(e) => {
                                 setLogin(e.target.value);
                             }}
-                            onKeyDown={handleSearch} />
+                            onKeyDown={handleSearch}
+                            required={true}
+                        />
 
-                        <Link to={`users/${login}`}>
+                        <Link to={login ? `users/${login}` : null}>
                             <IconButton >
-                                <SearchIcon style={{ color: 'white' }} />
+                                <SearchIcon style={{ color: 'white' }} className='mt-2'/>
                             </IconButton>
                         </Link>
+                    </Grid>
+                    <Grid item xs={12} className='text-center'>
+                        {
+                            !login && <Typography variant='body2' color="red">Please enter a valid GitHub username</Typography>
+                        }
                     </Grid>
                 </Grid>
             </div>

@@ -4,7 +4,7 @@ import React, { useState } from 'react'
 
 
 const api = axios.create({
-  baseURL: process.env.REACT_APP_API_BASE_URL,
+  baseURL: 'https://api.github.com/'
 })
 
 export const getUser = async (login) => {

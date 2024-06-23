@@ -20,7 +20,14 @@ const InfoVertical = ({ user }) => {
         )
     }
 
-    console.log(user)
+    if (user && user.length === 0) {
+        return (
+            <div className='h-[100%] w-[100%] flex items-center justify-center'>
+                We didnt found any user with this name.
+            </div>
+        )
+    }
+
     const renderDados = () => {
         return (
             <div className='flex flex-col items-center w-[100%]'>
@@ -54,11 +61,11 @@ const InfoVertical = ({ user }) => {
                         </Grid>
                         <Grid item xs={12} className='flex gap-2 mt-1'>
                             <LocationOnIcon />
-                            <Typography variant="body2 mt-1">{user.location}</Typography >
+                            <Typography variant="body2 mt-1">{user.location ? user.location : "User's location is not defined"}</Typography >
                         </Grid>
                         <Grid item xs={12} className='flex gap-2 mt-1'>
                             <LinkIcon />
-                            <Typography style={{whiteSpace: 'nowrap'}}variant="body2"><a href={user.blog}>{user.blog}</a></Typography >
+                            <a href={user.blog}><Typography style={{whiteSpace: 'nowrap'}}variant="body2">{user.blog ? user.blog : "User doesn't have a blog registered"}</Typography ></a>
                         </Grid>
                     </Grid>
                 </Grid>
@@ -80,7 +87,7 @@ const InfoVertical = ({ user }) => {
                         {renderDados()}
                     </Grid>
                     <Grid container className='mt-12'>
-                        <Grid item xs={12} className='h-[80%] flex items-center justify-center '>
+                        <Grid item xs={12} className='min-h-[80%] flex items-center justify-center '>
                             <img src={GitHubLogo} className=' w-[70%]' />
                         </Grid>
                         <Grid container className='mt-12'>
